@@ -61,4 +61,14 @@ public class EstudianteRESTController {
         return cursoService.guardarCurso(curso);
     }
 
+    @DeleteMapping("/cursos/borrar/{id}")
+    public ResponseEntity<String> borrarCursoPorId(@PathVariable long id) {
+        try {
+            cursoService.borrarCurso(id);
+            return ResponseEntity.ok("Curso borrado con exito");
+        }catch (Exception exception) {
+            return ResponseEntity.ok("No se puede eliminar este curso debido a que hay alumnos dentro de este");
+        }
+    }
+
 }
