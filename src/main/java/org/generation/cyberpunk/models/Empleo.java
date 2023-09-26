@@ -1,5 +1,6 @@
 package org.generation.cyberpunk.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,14 +19,26 @@ public class Empleo {
     @Column(name = "sueldo")
     private int sueldo;
 
+    @OneToOne
+    @JsonManagedReference
+    private Estudiante estudiante;
 
     public Empleo() {
     }
 
-    public Empleo(long empleoID, String nombre, int sueldo) {
+    public Empleo(long empleoID, String nombre, int sueldo, Estudiante estudiante) {
         this.empleoID = empleoID;
         this.nombre = nombre;
         this.sueldo = sueldo;
+        this.estudiante = estudiante;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
     public long getEmpleoID() {

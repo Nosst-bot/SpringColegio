@@ -1,8 +1,10 @@
 package org.generation.cyberpunk.controllers;
 
 import org.generation.cyberpunk.models.Curso;
+import org.generation.cyberpunk.models.Empleo;
 import org.generation.cyberpunk.models.Estudiante;
 import org.generation.cyberpunk.services.CursoService;
+import org.generation.cyberpunk.services.EmpleoServiceImpl;
 import org.generation.cyberpunk.services.EstudianteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -71,4 +73,17 @@ public class EstudianteRESTController {
         }
     }
 
+    @PutMapping("/cursos/editar/{id}")
+    public Curso editarCursoPorId(@PathVariable long id, @RequestBody Curso nuevoCurso) {
+        return cursoService.editarCursoPorId(id, nuevoCurso);
+    }
+
+
+    //Para EMPLEOS
+    @Autowired
+    EmpleoServiceImpl empleoService;
+    @GetMapping("/empleos/lista")
+    public List<Empleo> listarEmpleos() {
+        return empleoService.listaDeEmpleos();
+    }
 }
