@@ -31,13 +31,16 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public Estudiante guardarEstudiante(Estudiante estudianteNuevo){
         //Esta linea va a buscar en la base de datos si existe un curso con el ID a registrar para el estudiante
+        //Optional es un objeto que nos sirve para evitar errores de Null, es decir,
+        //se va a ejecutar de todas formas y si es null, el optional estara vacio.
         Optional<Curso> cursoOptional = cursoRepository.findById(estudianteNuevo.getCurso().getCursoID());
 
         //Verificar si es que el estudiante es mayor de edad
             if (estudianteNuevo.getEstudianteEdad() < 18) {
                 System.out.println("El estudiante debe ser mayor a 18 años");
                 return null;
-            } else if(cursoOptional.isPresent()){
+            } else
+                if(cursoOptional.isPresent()){ //Verificar si hay un curso almacenado en el Optional(Linea 36)
                 estudianteNuevo.setCurso(cursoOptional.get());
                 return estudianteRepository.save(estudianteNuevo);
             }else {
